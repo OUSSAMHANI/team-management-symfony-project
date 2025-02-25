@@ -1,0 +1,218 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <!-- Dashboard Section -->
+    <section class="dashboard py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 choose-option-title">Choose an Option</h2>
+            <div class="row g-4 justify-content-center">
+                <!-- Team Card -->
+                <div class="col-md-4">
+                    <div class="card shadow-lg text-center card-hover">
+                        <div class="card-body">
+                            <div class="icon mb-3">
+                                <i class="fas fa-users fa-4x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Manage Teams</h5>
+                            <p class="card-text">Organize and collaborate with your team effectively.</p>
+                            <div class="d-flex justify-content-between">
+                                <!-- "Go to Teams" button -->
+                                <a href="{{ path('team_list') }}" class="btn btn-primary hover-btn w-48">Go to Teams</a>
+                                <!-- "Manage Members" button, now aligned horizontally with equal width -->
+                                <a href="{{ path('team_member_list') }}" class="btn btn-secondary hover-btn w-48">Manage Members</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card -->
+                <div class="col-md-4">
+                    <div class="card shadow-lg text-center card-hover">
+                        <div class="card-body">
+                            <div class="icon mb-3">
+                                <i class="fas fa-project-diagram fa-4x text-success"></i>
+                            </div>
+                            <h5 class="card-title">View Projects</h5>
+                            <p class="card-text">Keep track of all your projects in one place.</p>
+                            <a href="{{ path('project_index') }}" class="btn btn-success hover-btn w-100">Go to Projects</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Card -->
+                <div class="col-md-4">
+                    <div class="card shadow-lg text-center card-hover">
+                        <div class="card-body">
+                            <div class="icon mb-3">
+                                <i class="fas fa-tasks fa-4x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Manage Tasks</h5>
+                            <p class="card-text">Assign and track tasks efficiently.</p>
+                            <a href="{{ path('task_index') }}" class="btn btn-info hover-btn w-100">Go to Tasks</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Style for the 'Choose an Option' Title */
+        .choose-option-title {
+            font-size: 2.5rem !important;
+            font-weight: bold !important;
+            color: #333 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px;
+            background-image: linear-gradient(45deg, #007bff, #28a745); /* Gradient effect */
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 40px;
+        }
+
+        /* Card Styling */
+        .card {
+            border: none;
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease, background-color 0.3s ease !important;
+            overflow: hidden;
+            height: 300px; /* Initial height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #fff !important;
+        }
+
+        .card-body {
+            flex-grow: 1; /* Ensure content fills available space */
+            padding: 1.5rem !important;
+        }
+
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease !important;
+        }
+
+        /* Hover Effects */
+        .card-hover:hover {
+            background-color: #f8f9fa !important; /* Slight background change */
+            transform: translateY(-15px) !important;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2) !important;
+            height: 450px !important; /* Expanded height */
+        }
+
+        /* Icon Styling */
+        .icon {
+            transition: transform 0.3s ease, color 0.3s ease !important;
+        }
+
+        .card-hover:hover .icon {
+            transform: scale(1.2) !important;
+            color: #007bff !important; /* Change icon color on hover */
+        }
+
+        /* Card Title Hover Effect */
+        .card-title {
+            transition: color 0.3s ease !important;
+        }
+
+        .card-hover:hover .card-title {
+            color: #007bff !important; /* Change title color */
+        }
+
+        /* Card Text Hover Effect */
+        .card-text {
+            transition: color 0.3s ease !important;
+        }
+
+        .card-hover:hover .card-text {
+            color: #6c757d !important; /* Slight text color change */
+        }
+
+        /* Button Styling */
+        .btn {
+            font-weight: bold;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
+        }
+
+        .hover-btn:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3 !important; /* Darker blue */
+        }
+
+        .btn-success:hover {
+            background-color: #218838 !important; /* Darker green */
+        }
+
+        .btn-info:hover {
+            background-color: #117a8b !important; /* Darker cyan */
+        }
+
+        /* Add spacing between cards */
+        .row.g-4 > div {
+            padding-bottom: 1.5rem !important;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .choose-option-title {
+                font-size: 2rem;
+            }
+
+            .row.g-4 {
+                flex-direction: column;
+            }
+
+            .card {
+                margin-bottom: 20px; /* Add margin for spacing between cards */
+            }
+
+            .d-flex {
+                flex-direction: column; /* Stack buttons vertically on small screens */
+            }
+        }
+
+        /* Make sure buttons are of equal size */
+        .w-48 {
+            width: 48%;
+        }
+
+        .w-100 {
+            width: 100%; /* Full width for single button cards */
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-hover');
+
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.height = '450px'; // Set the expanded height
+                    this.style.transition = 'height 0.3s ease !important';
+                    this.style.transform = 'translateY(-15px) !important';
+                    this.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.2) !important';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.height = '300px'; // Reset to initial height
+                    this.style.transition = 'height 0.3s ease !important';
+                    this.style.transform = 'translateY(0) !important';
+                    this.style.boxShadow = 'none !important';
+                });
+            });
+        });
+    </script>
+{% endblock %}

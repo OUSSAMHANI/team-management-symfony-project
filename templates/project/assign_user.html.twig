@@ -1,0 +1,47 @@
+{# templates/project/assign_user.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Assign Users to Project{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Assign Users to {{ project.name }}</h2>
+
+        <!-- Flash Message -->
+        {% if app.session.flashbag.has('success') %}
+            <div class="alert alert-success">
+                {{ app.session.flashbag.get('success')[0] }}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="mb-3">
+                <label for="user" class="form-label">Select User</label>
+                <select name="user" id="user" class="form-control shadow-sm">
+                    <option value="">Select a user</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}" {% if user.id == selectedUserId %}selected{% endif %}>{{ user.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Assign User</button>
+        </form>
+
+        <!-- Back Button -->
+        <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-secondary mt-3">Back to Project</a>
+    </div>
+
+    <style>
+        select:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #28a745;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+    </style>
+{% endblock %}

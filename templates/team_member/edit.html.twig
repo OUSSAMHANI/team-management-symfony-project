@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Member{% endblock %}
+
+{% block body %}
+    <div class="container pt-5 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="card shadow-lg p-4" style="max-width: 600px; width: 100%;">
+            <h2 class="mb-5 text-center text-primary">Edit Member</h2>
+            {{ form_start(form) }}
+                <div class="mb-4">
+                    {{ form_row(form.name, {
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        'attr': {
+                            'class': 'form-control shadow-sm rounded-pill form-hover-effect',
+                            'placeholder': 'Enter member name'
+                        }
+                    }) }}
+                </div>
+                <div class="mb-4">
+                    {{ form_row(form.role, {
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        'attr': {
+                            'class': 'form-control shadow-sm rounded-pill form-hover-effect',
+                            'placeholder': 'Enter member role'
+                        }
+                    }) }}
+                </div>
+                <div class="mb-4">
+                    {{ form_row(form.team, {
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        'attr': {
+                            'class': 'form-control shadow-sm rounded-pill form-hover-effect',
+                            'placeholder': 'Select team'
+                        }
+                    }) }}
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ path('team_member_list') }}" class="btn btn-secondary btn-hover-effect rounded-pill">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                    <button type="submit" class="btn btn-primary btn-hover-effect rounded-pill">
+                        <i class="fas fa-edit"></i> Update Member
+                    </button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

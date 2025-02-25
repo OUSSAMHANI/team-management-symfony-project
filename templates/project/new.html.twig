@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Project{% endblock %}
+
+{% block body %}
+<div class="container pt-5 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow-lg p-4" style="max-width: 600px; width: 100%;">
+
+        {# Flash messages for errors or success - REMOVE the success flash #}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <h2 class="mb-5 text-center text-primary">Create New Project</h2>
+
+        {{ form_start(form) }}
+            <div class="mb-4">
+                {{ form_row(form.name, {
+                    'label_attr': {'class': 'form-label fw-bold'},
+                    'attr': {
+                        'class': 'form-control shadow-sm rounded-pill form-hover-effect',
+                        'placeholder': 'Enter project name'
+                    }
+                }) }}
+            </div>
+            <div class="mb-4">
+                {{ form_row(form.description, {
+                    'label_attr': {'class': 'form-label fw-bold'},
+                    'attr': {
+                        'class': 'form-control shadow-sm rounded-pill form-hover-effect',
+                        'placeholder': 'Enter project description'
+                    }
+                }) }}
+            </div>
+            <div class="mb-4">
+                {{ form_row(form.startDate, {
+                    'label_attr': {'class': 'form-label fw-bold'},
+                    'attr': {
+                        'class': 'form-control shadow-sm rounded-pill form-hover-effect',
+                        'placeholder': 'Select start date'
+                    }
+                }) }}
+            </div>
+            <div class="mb-4">
+                {{ form_row(form.endDate, {
+                    'label_attr': {'class': 'form-label fw-bold'},
+                    'attr': {
+                        'class': 'form-control shadow-sm rounded-pill form-hover-effect',
+                        'placeholder': 'Select end date'
+                    }
+                }) }}
+            </div>
+            <div class="mb-4">
+                {{ form_row(form.team, {
+                    'label_attr': {'class': 'form-label fw-bold'},
+                    'attr': {
+                        'class': 'form-control shadow-sm rounded-pill form-hover-effect',
+                        'placeholder': 'Assign a team'
+                    }
+                }) }}
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ path('project_index') }}" class="btn btn-secondary btn-hover-effect rounded-pill">
+                    <i class="fas fa-arrow-left"></i> Back to Projects
+                </a>
+                <button type="submit" class="btn btn-primary btn-hover-effect rounded-pill">
+                    <i class="fas fa-save"></i> Save Project
+                </button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+<style>
+    .btn-primary {
+        background-color: #026978;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #009688;
+    }
+
+    .btn-secondary {
+        background-color: #ccc;
+        border: none;
+        color: #333;
+    }
+
+    .btn-secondary:hover {
+        background-color: #bbb;
+    }
+
+    .form-control {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .form-hover-effect:hover {
+        background-color: #f0f8ff;
+        border-color: #007bff;
+    }
+
+    .form-label {
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #026978;
+    }
+
+    .btn-primary i, .btn-secondary i {
+        margin-right: 5px;
+    }
+</style>
+{% endblock %}

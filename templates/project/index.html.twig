@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projects{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 pt-5">
+        <!-- Page Header with buttons on the same line -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-dark">Projects</h1>
+            <div class="d-flex gap-2">
+                <a href="{{ path('project_new') }}" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Create New Project
+                </a>
+                <a href="{{ path('app_dashboard') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Projects Table -->
+        <table class="table table-bordered table-hover mt-4 shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Project Name</th>
+                    <th>Team</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr class="table-row">
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.team ? project.team.name : 'N/A' }}</td> <!-- Added Team column -->
+                        <td>{{ project.startDate|date('Y-m-d H:i') }}</td>
+                        <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i') : 'N/A' }}</td>
+                        <td class="d-flex gap-2">
+                            <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-info btn-sm">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="{{ path('project_edit', {'id': project.id}) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ project.id }}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            No projects found. <a href="{{ path('project_new') }}">Create a new project</a>.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Custom Modal for Delete Confirmation -->
+    {% for project in projects %}
+    <div class="modal fade" id="deleteModal{{ project.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ project.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel{{ project.id }}">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the project "<strong>{{ project.name }}</strong>"? This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="{{ path('project_delete', {'id': project.id}) }}" method="post" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Hover Animation for Table Rows */
+        .table-row {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .table-row:hover {
+            background-color: #f0f8ff; /* Light blue hover color */
+            transform: scale(1.02);
+        }
+
+        /* Button Styles */
+        .btn-success i, .btn-info i, .btn-warning i, .btn-danger i {
+            margin-right: 5px;
+        }
+
+        /* Header Text */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .modal-header {
+            background-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .modal-body {
+            font-size: 16px;
+            color: #721c24;
+        }
+
+        .modal-footer .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .modal-footer .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .modal-footer .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        .modal-footer .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
+{% endblock %}

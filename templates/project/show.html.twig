@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project Details{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 pt-5">
+        <div class="card shadow-lg p-4">
+            <h2 class="mb-4 text-primary">Project Details: {{ project.name }}</h2>
+
+            <div class="mb-3">
+                <strong>Name:</strong> {{ project.name }}
+            </div>
+            <div class="mb-3">
+                <strong>Description:</strong> {{ project.description }}
+            </div>
+            <div class="mb-3">
+                <strong>Team:</strong> 
+                {% if project.team is not null %}
+                    {{ project.team.name }}
+                {% else %}
+                    No team assigned.
+                {% endif %}
+            </div>
+
+            <!-- Project Progress -->
+            <div class="mb-4">
+                <strong>Progress:</strong>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar {{ progressBarColor }}" role="progressbar" style="width: {{ progress }}%" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ progress|number_format(0) }}%
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <strong>Assigned Tasks:</strong>
+                {% if tasks|length > 0 %}
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Assigned To</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                                <tr>
+                                    <td>{{ task.name }}</td>
+                                    <td>{{ task.description }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if task.status == 'Done' %}badge-success{% elseif task.status == 'In Progress' %}badge-warning{% else %}badge-secondary{% endif %}">
+                                            <span class="text-black">{{ task.status|capitalize }}</span>
+                                        </span>
+                                    </td>
+                                    <td>{{ task.assignedTo ? task.assignedTo.name : 'No member assigned' }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    No tasks assigned to this project.
+                {% endif %}
+            </div>
+
+            <div class="mt-4 text-center">
+                <a href="{{ path('project_index') }}" class="btn btn-secondary btn-hover-effect">Back to Project List</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .card {
+            margin: auto;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+
+        .btn-hover-effect:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        /* Making the status text color black */
+        .badge .text-black {
+            color: black;
+        }
+    </style>
+{% endblock %}

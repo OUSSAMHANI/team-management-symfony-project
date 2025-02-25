@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to TeamFlow+{% endblock %}
+
+{% block body %}
+    <!-- Hero Section with High-Style Gradient Background -->
+    <section class="hero text-center">
+        <div class="container">
+            <div class="row">
+                <!-- Left Content -->
+                <div class="col-md-6 d-flex align-items-center">
+                    <div>
+                        <h1 class="fade-in">Welcome to TeamFlow+</h1>
+                        <p class="lead fade-in" style="animation-delay: 1s;">A powerful tool to manage teams, tasks, and projects efficiently.</p>
+                        <a href="{{ path('app_dashboard') }}" class="btn btn-light btn-lg bounce-in custom-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Right Content (Logo with Background Image) -->
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <div class="logo-container">
+                        <img src="{{ asset('assets/img/hero-img.svg') }}" alt="Logo" class="img-fluid animated-logo logo-hover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fade-in">Key Features</h2>
+            <div class="row text-center">
+                <div class="col-md-4 fade-in" style="animation-delay: 0.5s;">
+                    <div class="icon mb-3">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Manage Teams</h4>
+                    <p>Organize your team members and collaborate on projects efficiently.</p>
+                </div>
+                <div class="col-md-4 fade-in" style="animation-delay: 1s;">
+                    <div class="icon mb-3">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h4>Task Assignment</h4>
+                    <p>Assign tasks and track progress with ease to keep projects on track.</p>
+                </div>
+                <div class="col-md-4 fade-in" style="animation-delay: 1.5s;">
+                    <div class="icon mb-3">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h4>Project Management</h4>
+                    <p>Plan, track, and execute projects all in one place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Hero Section Height Adjustment */
+        .hero {
+            padding-top: 100px;
+            padding-bottom: 100px;
+            background: linear-gradient(to bottom, #007bff, #0056b3); /* Keep original blue gradient */
+        }
+
+        /* Button hover styling */
+        .custom-btn {
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            animation: bounceIn 1s ease-out forwards;
+        }
+
+        .custom-btn:hover {
+            background-color: #007bff !important; /* Primary blue */
+            color: white !important;
+            transform: scale(1.1); /* Slightly enlarge the button */
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5); /* Add a glow effect */
+        }
+
+        /* Features Icons Styling */
+        .features .icon {
+            font-size: 5rem;
+            color: #007bff; /* Keep original blue */
+        }
+
+        .features .icon:hover {
+            color: #0056b3;
+            transform: scale(1.2);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        /* Logo hover effect with animation */
+        .logo-hover {
+            animation: bounce 2s infinite;
+        }
+
+        /* Bounce animation for the logo */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Fade-in animations (ensure elements stay visible) */
+        .fade-in {
+            opacity: 1;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Button Bounce-In Animation */
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            60% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+    </style>
+{% endblock %}
